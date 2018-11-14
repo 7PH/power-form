@@ -1,0 +1,30 @@
+{
+
+    "elements": [
+
+        {
+            "type": "checkbox",
+            "title": "Dummy checkbox",
+            "checked": false
+        },
+        {
+            "type": "checkbox",
+            "title": "Dummy checked checkbox",
+            "checked": true
+        },
+        {
+            "type": "input",
+            "title": "Dummy input",
+            "icon": false
+        },
+        {
+            "type": "input",
+            "title": "Dummy input with an icon",
+            "icon": "fa fa-thumb-tack"
+        },
+        {
+            "type": "textarea",
+            "title": "Dummy text area"
+        }
+    ]
+}
