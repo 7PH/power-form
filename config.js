@@ -1,16 +1,16 @@
-{
+const CONFIG = {
 
     "elements": [
 
         {
             "type": "checkbox",
             "title": "Dummy checkbox",
-            "checked": false
+            "default": false
         },
         {
             "type": "checkbox",
             "title": "Dummy checked checkbox",
-            "checked": true
+            "default": true
         },
         {
             "type": "input",
@@ -24,7 +24,8 @@
         },
         {
             "type": "textarea",
-            "title": "Dummy text area"
+            "title": "Dummy text area",
+            "default": "Default text"
         }
     ]
-}
+};

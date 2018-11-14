@@ -1,11 +1,38 @@
 <!DOCTYPE html>
-<html lang="fr" class="no-js">
+<html lang="fr" ng-app="powerForm">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
 </head>
-<body class="dup-body">
+<body ng-controller="PowerFormController">
 
+    <div ng-repeat="(index, element) in CONFIG.elements">
 
+        <!-- if the element is a separator -->
+        <div ng-if="element.type === 'separator'">
+            <hr>
+        </div>
+
+        <!-- if the element is a checkbox show this -->
+        <div ng-if="element.type === 'checkbox'">
+            <label>{{element.title}}</label><input type="checkbox" title="{{element.title}}" ng-model="values[index]">
+        </div>
+
+        <!-- same for a one line input -->
+        <div ng-if="element.type === 'input'">
+            <label>{{element.title}}</label><input type="text" title="{{element.title}}" ng-model="values[index]">
+        </div>
+
+        <!-- same for a text area -->
+        <div ng-if="element.type === 'textarea'">
+            <textarea title="{{element.title}}" ng-model="values[index]"></textarea>
+        </div>
+    </div>
+
+    <!-- submit button -->
+    <button ng-click="send()">Submit</button>
 </body>
 </html>
