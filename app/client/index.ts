@@ -1,27 +1,37 @@
-angular.module('powerForm', [])
-    .controller('PowerFormController', function($scope) {
+import {Config} from "./config/Config";
 
-        $scope.CONFIG = CONFIG;
+// @ts-ignore
+const app = angular.module("powerForm", []);
 
-        /**
-         * Assign default values to the form
-         *
-         * @type {any[]}
-         */
-        $scope.values = CONFIG
-            .elements
-            .map((element: any) => {
-                switch (element.type) {
-                    case 'separator': return null;
-                    case 'checkbox': return !! element.default;
-                    default: return element.default;
-                }
-            });
+app.controller("PowerFormController", async function ($scope: any) {
 
-        /**
-         * Send the form
-         */
-        $scope.send = () => {
-            alert(JSON.stringify($scope.values));
-        }
-    });
+    /**
+     * Load config
+     */
+    const CONFIG: Config = await (await fetch('./config.json')).json();
+    $scope.CONFIG = CONFIG;
+
+    /**
+     * Assign default values to the form
+     *
+     * @type {*[]}
+     */
+    $scope.values = CONFIG
+        .elements
+        .map((element: any) => {
+            switch (element.type) {
+                case 'separator': return null;
+                case 'checkbox': return !! element.default;
+                default: return element.default;
+            }
+        });
+
+    /**
+     * Send the form
+     */
+    $scope.send = () => {
+        alert(JSON.stringify($scope.values));
+    };
+
+    $scope.$apply();
+});
