@@ -10,7 +10,7 @@ angular.module('powerForm', [])
          */
         $scope.values = CONFIG
             .elements
-            .map(element => {
+            .map((element: any) => {
                 switch (element.type) {
                     case 'separator': return null;
                     case 'checkbox': return !! element.default;
