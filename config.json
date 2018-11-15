@@ -1,7 +1,5 @@
-const CONFIG = {
-
+{
     "elements": [
-
         {
             "type": "checkbox",
             "title": "Dummy checkbox",
@@ -28,4 +26,4 @@ const CONFIG = {
             "default": "Default text"
         }
     ]
-};
+}
