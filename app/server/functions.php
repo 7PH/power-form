@@ -74,3 +74,23 @@ function ajax_error_exit($message) {
 
     ajax_exit(array("error" => $message));
 }
+
+/**
+ * @param $values
+ * @return bool
+ */
+function send_email($values) {
+
+    $mail_title = "Form submitted: ".date("Y/m/d")." à ".date("H:i:s");
+
+    $mail_text = json_encode($values);
+
+    $headers = 'From: no-reply@anathea-mediterranee.com' . "\r\n" .
+        'Reply-To: no-reply@anathea-mediterranee.com' . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
+
+    $emails = json_decode(FORM_EMAILS);
+    foreach ($emails as $email)
+        if (! mail($email, $mail_title, $mail_text, $headers))
+            return false;
+}

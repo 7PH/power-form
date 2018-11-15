@@ -20,8 +20,22 @@ $config = read_config();
  */
 
 
+// Merge config with values
+$values = $config;
+foreach ($values['elements'] as $key => $value)
+    $values['elements'][$key]['value'] = $data[$key];
 
-ajax_exit(array(
-    "config" => $config,
-    "data" => $data
-));
+
+// Store in db if config is set
+if (DB_ENABLE)
+    db_add_entry(db_init(), $config, $_SERVER['REMOTE_ADDR']);
+
+
+// Send email if config tells so
+if (FORM_SEND_EMAIL)
+    if (! send_email($config))
+        ajax_error_exit("An error occurred while sending the email");
+
+
+// Exit
+ajax_exit($values);
