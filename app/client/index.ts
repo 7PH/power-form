@@ -30,7 +30,7 @@ app.controller("PowerFormController", async function ($scope: any) {
      * Send the form
      */
     $scope.send = async () => {
-        const result: Response = await fetch('./result.php', {
+        const result: Response = await fetch('./app/server/result.php', {
             method: 'POST',
             body: JSON.stringify($scope.values),
             headers: {
