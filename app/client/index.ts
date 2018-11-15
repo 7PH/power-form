@@ -22,15 +22,26 @@ app.controller("PowerFormController", async function ($scope: any) {
             switch (element.type) {
                 case 'separator': return null;
                 case 'checkbox': return !! element.default;
-                default: return element.default;
+                default: return element.default || "";
             }
         });
 
     /**
      * Send the form
      */
-    $scope.send = () => {
-        alert(JSON.stringify($scope.values));
+    $scope.send = async () => {
+        const result: Response = await fetch('./result.php', {
+            method: 'POST',
+            body: JSON.stringify($scope.values),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const json: any = await result.json();
+
+        console.log("response", json);
     };
 
     $scope.$apply();

@@ -11,6 +11,9 @@
             "default": true
         },
         {
+            "type": "separator"
+        },
+        {
             "type": "input",
             "title": "Dummy input",
             "icon": false

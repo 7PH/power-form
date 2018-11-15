@@ -1,10 +1,8 @@
 <?php
 
-/**
- * @TODO handle logic
- */
-
 header("Content-Type: application/json");
-exit(json_encode(array(
-    "foo" => "bar"
-)));
+
+$json = file_get_contents('php://input');
+$obj = json_decode($json);
+
+exit(json_encode($obj));
