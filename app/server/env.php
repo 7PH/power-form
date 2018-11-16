@@ -1,7 +1,7 @@
 <?php
 
 /** Database credentials */
-define('DB_ENABLE',     false);
+define('DB_ENABLE',     true);
 define('DB_NAME',       '@TODO');
 define('DB_USER',       '@TODO');
 define('DB_PASSWORD',   '@TODO');

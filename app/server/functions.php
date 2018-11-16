@@ -81,16 +81,19 @@ function ajax_error_exit($message) {
  */
 function send_email($values) {
 
+    $host = $values['host'];
+
     $mail_title = "Form submitted: ".date("Y/m/d")." à ".date("H:i:s");
 
     $mail_text = json_encode($values);
 
-    $headers = 'From: no-reply@anathea-mediterranee.com' . "\r\n" .
-        'Reply-To: no-reply@anathea-mediterranee.com' . "\r\n" .
+    $headers = 'From: no-reply@' . $host . "\r\n" .
+        'Reply-To: no-reply@' . $host . "\r\n" .
         'X-Mailer: PHP/' . phpversion();
 
     $emails = json_decode(FORM_EMAILS);
     foreach ($emails as $email)
-        if (! mail($email, $mail_title, $mail_text, $headers))
+        if (!mail($email, $mail_title, $mail_text, $headers))
             return false;
+    return true;
 }
