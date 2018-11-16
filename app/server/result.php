@@ -33,7 +33,7 @@ if (DB_ENABLE)
 
 // Send email if config tells so
 if (FORM_SEND_EMAIL)
-    if (! send_email($config))
+    if (! send_email($values))
         ajax_error_exit("An error occurred while sending the email");
 
 
