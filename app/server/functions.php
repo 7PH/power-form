@@ -56,7 +56,10 @@ function read_post_data() {
  */
 function read_config() {
 
-    return json_decode(file_get_contents('../../config.json'), true);
+    return array(
+        "hostname" => FORM_HOSTNAME,
+        "elements" => json_decode(FORM_ELEMENTS, true)
+    );
 }
 
 /**
@@ -64,6 +67,7 @@ function read_config() {
  */
 function ajax_exit($data) {
 
+    header("Content-Type: application/json");
     exit(json_encode($data));
 }
 

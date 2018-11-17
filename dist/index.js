@@ -43,7 +43,7 @@ app.controller("PowerFormController", function ($scope) {
         var CONFIG;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4, fetch('./config.json')];
+                case 0: return [4, fetch('./app/server/config.php')];
                 case 1: return [4, (_a.sent()).json()];
                 case 2:
                     CONFIG = _a.sent();

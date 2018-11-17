@@ -2,8 +2,6 @@
 
 require('functions.php');
 
-header("Content-Type: application/json");
-
 /**
  * Data received from the form
  */

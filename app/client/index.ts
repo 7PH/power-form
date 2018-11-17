@@ -9,7 +9,7 @@ app.controller("PowerFormController", async function ($scope: any) {
     /**
      * Load config
      */
-    const CONFIG: Config = await (await fetch('./config.json')).json();
+    const CONFIG: Config = await (await fetch('./app/server/config.php')).json();
     $scope.CONFIG = CONFIG;
 
     /**
