@@ -50,5 +50,11 @@ $elements[] = array(
     "title" => "Text area",
     "default" => ""
 );
+$elements[] = array(
+    "type" => "select",
+    "title" => "Select",
+    "options" => array("One", "Two", "Three"),
+    "default" => "1"
+);
 
 define('FORM_ELEMENTS', json_encode($elements));

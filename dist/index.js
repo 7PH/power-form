@@ -43,7 +43,12 @@ app.controller("PowerFormController", function ($scope) {
         var CONFIG;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4, fetch('./app/server/config.php')];
+                case 0:
+                    $scope.STATE_NOT_SENT = 0;
+                    $scope.STATE_SENDING = 1;
+                    $scope.STATE_SENT = 2;
+                    $scope.state = $scope.STATE_NOT_SENT;
+                    return [4, fetch('./app/server/config.php')];
                 case 1: return [4, (_a.sent()).json()];
                 case 2:
                     CONFIG = _a.sent();
@@ -61,20 +66,24 @@ app.controller("PowerFormController", function ($scope) {
                         var result, json;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
-                                case 0: return [4, fetch('./app/server/result.php', {
-                                        method: 'POST',
-                                        body: JSON.stringify($scope.values),
-                                        headers: {
-                                            'Accept': 'application/json',
-                                            'Content-Type': 'application/json'
-                                        }
-                                    })];
+                                case 0:
+                                    $scope.state = $scope.STATE_SENDING;
+                                    return [4, fetch('./app/server/result.php', {
+                                            method: 'POST',
+                                            body: JSON.stringify($scope.values),
+                                            headers: {
+                                                'Accept': 'application/json',
+                                                'Content-Type': 'application/json'
+                                            }
+                                        })];
                                 case 1:
                                     result = _a.sent();
                                     return [4, result.json()];
                                 case 2:
                                     json = _a.sent();
                                     console.log("response", json);
+                                    $scope.state = $scope.STATE_SENT;
+                                    $scope.$apply();
                                     return [2];
                             }
                         });
