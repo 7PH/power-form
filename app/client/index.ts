@@ -1,5 +1,6 @@
 import {Config} from "./config/Config";
 
+
 // @ts-ignore
 const app = angular.module("powerForm", []);
 

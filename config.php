@@ -11,4 +11,7 @@ define('DB_IDENTIFIER', '@TODO');
 
 /** Contact emails */
 define('FORM_SEND_EMAIL', true);
-define('FORM_EMAILS', json_encode(array('b.raymond@protonmail.com')));
+define('FORM_EMAILS', json_encode(array(
+    'foo@bar.baz',
+    'baz@foo.bar',
+)));

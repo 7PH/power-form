@@ -1,6 +1,6 @@
 <?php
 
-require('env.php');
+require('../../config.php');
 
 /**
  * Creates a connection to the database
