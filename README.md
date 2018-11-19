@@ -1,5 +1,7 @@
 # power-form
 
+<img src="https://travis-ci.com/7PH/power-form.svg?branch=master">
+
 (Work in progress)
 
 ## How to use
