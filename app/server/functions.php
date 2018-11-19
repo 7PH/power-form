@@ -25,9 +25,11 @@ function db_init() {
     $PDO->exec(
         'CREATE TABLE IF NOT EXISTS `' . DB_TABLE . '` (
             `id` INT NOT NULL AUTO_INCREMENT,
+            `form_identifier` VARCHAR (64),
             `data` VARCHAR(4096) NOT NULL,
             `ip` VARCHAR(64) NOT NULL,
             PRIMARY KEY (`id`),
+            INDEX (`form_identifier`),
             INDEX (`ip`)
         ) ENGINE = InnoDB;');
     return $PDO;
@@ -37,10 +39,11 @@ function db_init() {
  * @param $PDO
  * @param $data
  * @param $ip
+ * @param null $form_identifier
  */
-function db_add_entry(&$PDO, $data, $ip) {
-    $p = $PDO->prepare('INSERT INTO `form_results` (`data`, `ip`) VALUES (?, ?)');
-    $p->execute([json_encode($data), $ip]);
+function db_add_entry(&$PDO, $data, $ip, $form_identifier=NULL) {
+    $p = $PDO->prepare('INSERT INTO `form_results` (`data`, `form_identifier`, `ip`) VALUES (?, ?, ?)');
+    $p->execute([json_encode($data), $form_identifier, $ip]);
 }
 
 /**

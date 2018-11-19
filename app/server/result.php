@@ -26,7 +26,7 @@ foreach ($values['elements'] as $key => $value)
 
 // Store in db if config is set
 if (DB_ENABLE)
-    db_add_entry(db_init(), $config, $_SERVER['REMOTE_ADDR']);
+    db_add_entry(db_init(), $config, $_SERVER['REMOTE_ADDR'], DB_IDENTIFIER);
 
 
 // Send email if config tells so
