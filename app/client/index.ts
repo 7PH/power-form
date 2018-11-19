@@ -42,6 +42,10 @@ app.controller("PowerFormController", async function ($scope: any) {
      */
     $scope.send = async () => {
 
+        // prevent double submissions
+        if ($scope.state === $scope.STATE_SENDING)
+            return;
+
         $scope.state = $scope.STATE_SENDING;
         const result: Response = await fetch('./app/server/result.php', {
             method: 'POST',

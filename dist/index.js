@@ -69,6 +69,8 @@ app.controller("PowerFormController", function ($scope) {
                         return __generator(this, function (_a) {
                             switch (_a.label) {
                                 case 0:
+                                    if ($scope.state === $scope.STATE_SENDING)
+                                        return [2];
                                     $scope.state = $scope.STATE_SENDING;
                                     return [4, fetch('./app/server/result.php', {
                                             method: 'POST',
