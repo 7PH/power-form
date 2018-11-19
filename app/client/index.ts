@@ -21,12 +21,10 @@ app.controller("PowerFormController", async function ($scope: any) {
     $scope.CONFIG = CONFIG;
 
     /**
-     * Assign default values to the form
      *
-     * @type {*[]}
      */
-    $scope.resetValues = function() {
-        $scope.values = CONFIG
+    $scope.getDefaults = function() {
+        return CONFIG
             .elements
             .map((element: any) => {
                 switch (element.type) {
@@ -38,13 +36,42 @@ app.controller("PowerFormController", async function ($scope: any) {
     };
 
     /**
+     * Assign default values to the form
+     *
+     * @type {*[]}
+     */
+    $scope.resetValues = function() {
+        $scope.values = $scope.getDefaults();
+    };
+
+    /**
+     *
+     * @returns {boolean}
+     */
+    $scope.formHasBeenTouched = function() {
+
+        const defaults = $scope.getDefaults();
+
+        return $scope
+            .values
+            .map((v: any, i: number) => v !== defaults[i])
+            .reduce((old: boolean, curr: boolean) => old || curr, false);
+    };
+
+    /**
      * Send the form
      */
     $scope.send = async () => {
 
+        if (! $scope.formHasBeenTouched()) {
+            alert("Please fill the form before submitting");
+            return false;
+        }
+
         // prevent double submissions
-        if ($scope.state === $scope.STATE_SENDING)
-            return;
+        if ($scope.state === $scope.STATE_SENDING) {
+            return false;
+        }
 
         $scope.state = $scope.STATE_SENDING;
         const result: Response = await fetch('./app/server/result.php', {

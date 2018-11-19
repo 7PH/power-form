@@ -53,8 +53,8 @@ app.controller("PowerFormController", function ($scope) {
                 case 2:
                     CONFIG = _a.sent();
                     $scope.CONFIG = CONFIG;
-                    $scope.resetValues = function () {
-                        $scope.values = CONFIG
+                    $scope.getDefaults = function () {
+                        return CONFIG
                             .elements
                             .map(function (element) {
                             switch (element.type) {
@@ -64,13 +64,28 @@ app.controller("PowerFormController", function ($scope) {
                             }
                         });
                     };
+                    $scope.resetValues = function () {
+                        $scope.values = $scope.getDefaults();
+                    };
+                    $scope.formHasBeenTouched = function () {
+                        var defaults = $scope.getDefaults();
+                        return $scope
+                            .values
+                            .map(function (v, i) { return v !== defaults[i]; })
+                            .reduce(function (old, curr) { return old || curr; }, false);
+                    };
                     $scope.send = function () { return __awaiter(_this, void 0, void 0, function () {
                         var result, json;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
                                 case 0:
-                                    if ($scope.state === $scope.STATE_SENDING)
-                                        return [2];
+                                    if (!$scope.formHasBeenTouched()) {
+                                        alert("Please fill the form before submitting");
+                                        return [2, false];
+                                    }
+                                    if ($scope.state === $scope.STATE_SENDING) {
+                                        return [2, false];
+                                    }
                                     $scope.state = $scope.STATE_SENDING;
                                     return [4, fetch('./app/server/result.php', {
                                             method: 'POST',
