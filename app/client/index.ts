@@ -25,15 +25,17 @@ app.controller("PowerFormController", async function ($scope: any) {
      *
      * @type {*[]}
      */
-    $scope.values = CONFIG
-        .elements
-        .map((element: any) => {
-            switch (element.type) {
-                case 'separator': return null;
-                case 'checkbox': return !! element.default;
-                default: return element.default || "";
-            }
-        });
+    $scope.resetValues = function() {
+        $scope.values = CONFIG
+            .elements
+            .map((element: any) => {
+                switch (element.type) {
+                    case 'separator': return null;
+                    case 'checkbox': return !! element.default;
+                    default: return element.default || "";
+                }
+            });
+    };
 
     /**
      * Send the form
@@ -49,6 +51,7 @@ app.controller("PowerFormController", async function ($scope: any) {
                 'Content-Type': 'application/json'
             }
         });
+        $scope.resetValues();
 
         const json: any = await result.json();
 
@@ -57,5 +60,6 @@ app.controller("PowerFormController", async function ($scope: any) {
         $scope.$apply();
     };
 
+    $scope.resetValues();
     $scope.$apply();
 });

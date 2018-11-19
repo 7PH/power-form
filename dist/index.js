@@ -53,15 +53,17 @@ app.controller("PowerFormController", function ($scope) {
                 case 2:
                     CONFIG = _a.sent();
                     $scope.CONFIG = CONFIG;
-                    $scope.values = CONFIG
-                        .elements
-                        .map(function (element) {
-                        switch (element.type) {
-                            case 'separator': return null;
-                            case 'checkbox': return !!element.default;
-                            default: return element.default || "";
-                        }
-                    });
+                    $scope.resetValues = function () {
+                        $scope.values = CONFIG
+                            .elements
+                            .map(function (element) {
+                            switch (element.type) {
+                                case 'separator': return null;
+                                case 'checkbox': return !!element.default;
+                                default: return element.default || "";
+                            }
+                        });
+                    };
                     $scope.send = function () { return __awaiter(_this, void 0, void 0, function () {
                         var result, json;
                         return __generator(this, function (_a) {
@@ -78,6 +80,7 @@ app.controller("PowerFormController", function ($scope) {
                                         })];
                                 case 1:
                                     result = _a.sent();
+                                    $scope.resetValues();
                                     return [4, result.json()];
                                 case 2:
                                     json = _a.sent();
@@ -88,6 +91,7 @@ app.controller("PowerFormController", function ($scope) {
                             }
                         });
                     }); };
+                    $scope.resetValues();
                     $scope.$apply();
                     return [2];
             }
