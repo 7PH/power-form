@@ -42,7 +42,8 @@ function db_init() {
  * @param null $form_identifier
  */
 function db_add_entry(&$PDO, $data, $ip, $form_identifier=NULL) {
-    $p = $PDO->prepare('INSERT INTO `form_results` (`data`, `form_identifier`, `ip`) VALUES (?, ?, ?)');
+    $p = $PDO->prepare(
+        'INSERT INTO `'.DB_TABLE.'` (`data`, `form_identifier`, `ip`) VALUES (?, ?, ?)');
     $p->execute([json_encode($data), $form_identifier, $ip]);
 }
 
