@@ -102,6 +102,8 @@ app.controller("PowerFormController", function ($scope) {
                                 case 2:
                                     json = _a.sent();
                                     console.log("response", json);
+                                    if (typeof window["onFormSent"] === "function")
+                                        window["onFormSent"]();
                                     $scope.state = $scope.STATE_SENT;
                                     $scope.$apply();
                                     return [2];
