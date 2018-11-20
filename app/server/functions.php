@@ -116,11 +116,20 @@ function mail_template_populate($mail_html, $values) {
 
     // Build values html
     $values_html = "";
-    foreach ($values['elements'] as $element)
-        $values_html .= $element["title"]
-            . " - "
-            . htmlentities($element["value"], ENT_QUOTES)
-            . "\n";
+    foreach ($values['elements'] as $element) {
+
+        if (is_bool($element["value"]))
+            $v = $element["value"] ? "Yes" : "No";
+        else if (is_null($element["value"]))
+            $v = null;
+        else
+            $v = $element["value"];
+
+        $values_html .= $element["title"];
+        if ($v != null)
+            $values_html .= ": " . htmlentities($v, ENT_QUOTES);
+        $values_html .= "\n";
+    }
     // Replace values
     $mail_html = str_replace('$values', $values_html, $mail_html);
     return $mail_html;
