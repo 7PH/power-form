@@ -94,7 +94,7 @@ function send_email($values) {
     $mail_title = "Form submitted: ".date("Y/m/d")." à ".date("H:i:s");
 
     $mail_html = file_get_contents('../../mail_templates/default.html');
-    $mail_text = mail_template_populate($mail_html, $values);
+    $mail_html = mail_template_populate($mail_html, $values);
 
     $headers = 'From: no-reply@' . $host . "\r\n" .
         'Reply-To: no-reply@' . $host . "\r\n" .
@@ -102,7 +102,7 @@ function send_email($values) {
 
     $emails = json_decode(FORM_EMAILS);
     foreach ($emails as $email)
-        if (!mail($email, $mail_title, $mail_text, $headers))
+        if (!mail($email, $mail_title, $mail_html, $headers))
             return false;
     return true;
 }
@@ -119,7 +119,8 @@ function mail_template_populate($mail_html, $values) {
     foreach ($values['elements'] as $element)
         $values_html .= $element["title"]
             . " - "
-            . htmlentities($element["value"], ENT_QUOTES);
+            . htmlentities($element["value"], ENT_QUOTES)
+            . "\n";
     // Replace values
     $mail_html = str_replace('$values', $values_html, $mail_html);
     return $mail_html;
