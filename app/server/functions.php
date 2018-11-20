@@ -93,7 +93,8 @@ function send_email($values) {
 
     $mail_title = "Form submitted: ".date("Y/m/d")." à ".date("H:i:s");
 
-    $mail_text = json_encode($values);
+    $mail_html = file_get_contents('../../mail_templates/default.html');
+    $mail_text = mail_template_populate($mail_html, $values);
 
     $headers = 'From: no-reply@' . $host . "\r\n" .
         'Reply-To: no-reply@' . $host . "\r\n" .
@@ -104,4 +105,22 @@ function send_email($values) {
         if (!mail($email, $mail_title, $mail_text, $headers))
             return false;
     return true;
+}
+
+/**
+ * @param string $mail_html
+ * @param array $values
+ * @return string
+ */
+function mail_template_populate($mail_html, $values) {
+
+    // Build values html
+    $values_html = "";
+    foreach ($values['elements'] as $element)
+        $values_html .= $element["title"]
+            . " - "
+            . htmlentities($element["value"], ENT_QUOTES);
+    // Replace values
+    $mail_html = str_replace('$values', $values_html, $mail_html);
+    return $mail_html;
 }
