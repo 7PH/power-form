@@ -89,15 +89,13 @@ function ajax_error_exit($message) {
  */
 function send_email($values) {
 
-    $host = $values['host'];
-
     $mail_title = "Form submitted: ".date("Y/m/d")." à ".date("H:i:s");
 
     $mail_html = file_get_contents('../../mail_templates/default.html');
     $mail_html = mail_template_populate($mail_html, $values);
 
-    $headers = 'From: no-reply@' . $host . "\r\n" .
-        'Reply-To: no-reply@' . $host . "\r\n" .
+    $headers = 'From: no-reply@' . FORM_HOSTNAME . "\r\n" .
+        'Reply-To: no-reply@' . FORM_HOSTNAME . "\r\n" .
         'X-Mailer: PHP/' . phpversion();
 
     $emails = json_decode(FORM_EMAILS);
