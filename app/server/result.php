@@ -12,11 +12,30 @@ $data = read_post_data();
  */
 $config = read_config();
 
+// General checks
+if (! $data)
+    ajax_error_exit("Incomplete data");
 
-/**
- * @TODO add checks
- */
+if (! is_array($data) || count($data) !== count($config['elements']))
+    ajax_error_exit("Incorrect data");
 
+// Check values
+foreach ($config['elements'] as $key => $element) {
+    if (! isset($element['accept']))
+        continue;
+
+    $accept = $element['accept'];
+    $value = $data[$key];
+    $accepted = false;
+    if ($accept === 'email') {
+        $accepted = filter_var($value, FILTER_VALIDATE_EMAIL);
+    } else {
+        $accepted = $accept == $value;
+    }
+
+    if (! $accepted)
+        ajax_error_exit("Error: " . $element['title']);
+}
 
 // Merge config with values
 $values = $config;

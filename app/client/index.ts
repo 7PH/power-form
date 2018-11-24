@@ -15,6 +15,11 @@ app.controller("PowerFormController", async function ($scope: any) {
     $scope.state = $scope.STATE_NOT_SENT;
 
     /**
+     * Last error
+     */
+    $scope.error = "";
+
+    /**
      * Load config
      */
     const CONFIG: Config = await (await fetch('./app/server/config.php')).json();
@@ -41,6 +46,7 @@ app.controller("PowerFormController", async function ($scope: any) {
      * @type {*[]}
      */
     $scope.resetValues = function() {
+        $scope.error = "";
         $scope.values = $scope.getDefaults();
     };
 
@@ -63,7 +69,7 @@ app.controller("PowerFormController", async function ($scope: any) {
      */
     $scope.send = async () => {
 
-        if (! $scope.formHasBeenTouched()) {
+        if (!$scope.formHasBeenTouched()) {
             alert("Please fill the form before submitting");
             return false;
         }
@@ -82,14 +88,21 @@ app.controller("PowerFormController", async function ($scope: any) {
                 'Content-Type': 'application/json'
             }
         });
-        $scope.resetValues();
 
         const json: any = await result.json();
 
-        console.log("response", json);
-        if (typeof (<any>window)["onFormSent"] === "function")
-            (<any>window)["onFormSent"]();
-        $scope.state = $scope.STATE_SENT;
+        if (typeof json.error !== "undefined") {
+
+            $scope.error = json.error;
+            $scope.state = $scope.STATE_NOT_SENT;
+        } else {
+
+            $scope.resetValues();
+            if (typeof (<any>window)["onFormSent"] === "function")
+                (<any>window)["onFormSent"]();
+            $scope.state = $scope.STATE_SENT;
+        }
+
         $scope.$apply();
     };
 

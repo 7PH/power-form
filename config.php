@@ -46,6 +46,12 @@ $elements[] = array(
     "default" => "default value"
 );
 $elements[] = array(
+    "type" => "input",
+    "title" => "Input 3 (email)",
+    "accept" => "email",
+    "default" => "default value"
+);
+$elements[] = array(
     "type" => "textarea",
     "title" => "Text area",
     "default" => ""

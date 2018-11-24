@@ -48,6 +48,7 @@ app.controller("PowerFormController", function ($scope) {
                     $scope.STATE_SENDING = 1;
                     $scope.STATE_SENT = 2;
                     $scope.state = $scope.STATE_NOT_SENT;
+                    $scope.error = "";
                     return [4, fetch('./app/server/config.php')];
                 case 1: return [4, (_a.sent()).json()];
                 case 2:
@@ -65,6 +66,7 @@ app.controller("PowerFormController", function ($scope) {
                         });
                     };
                     $scope.resetValues = function () {
+                        $scope.error = "";
                         $scope.values = $scope.getDefaults();
                     };
                     $scope.formHasBeenTouched = function () {
@@ -97,14 +99,19 @@ app.controller("PowerFormController", function ($scope) {
                                         })];
                                 case 1:
                                     result = _a.sent();
-                                    $scope.resetValues();
                                     return [4, result.json()];
                                 case 2:
                                     json = _a.sent();
-                                    console.log("response", json);
-                                    if (typeof window["onFormSent"] === "function")
-                                        window["onFormSent"]();
-                                    $scope.state = $scope.STATE_SENT;
+                                    if (typeof json.error !== "undefined") {
+                                        $scope.error = json.error;
+                                        $scope.state = $scope.STATE_NOT_SENT;
+                                    }
+                                    else {
+                                        $scope.resetValues();
+                                        if (typeof window["onFormSent"] === "function")
+                                            window["onFormSent"]();
+                                        $scope.state = $scope.STATE_SENT;
+                                    }
                                     $scope.$apply();
                                     return [2];
                             }
