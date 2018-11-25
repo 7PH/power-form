@@ -31,13 +31,7 @@ app.controller("PowerFormController", async function ($scope: any) {
     $scope.getDefaults = function() {
         return CONFIG
             .elements
-            .map((element: any) => {
-                switch (element.type) {
-                    case 'separator': return null;
-                    case 'checkbox': return !! element.default;
-                    default: return element.default || "";
-                }
-            });
+            .map((element: any) => element.default);
     };
 
     /**
