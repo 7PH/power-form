@@ -57,13 +57,7 @@ app.controller("PowerFormController", function ($scope) {
                     $scope.getDefaults = function () {
                         return CONFIG
                             .elements
-                            .map(function (element) {
-                            switch (element.type) {
-                                case 'separator': return null;
-                                case 'checkbox': return !!element.default;
-                                default: return element.default || "";
-                            }
-                        });
+                            .map(function (element) { return element.default; });
                     };
                     $scope.resetValues = function () {
                         $scope.error = "";
