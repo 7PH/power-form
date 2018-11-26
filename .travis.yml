@@ -7,4 +7,3 @@ before_script:
   - npm install mocha -g
 script:
   - npm test
-

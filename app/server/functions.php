@@ -132,3 +132,11 @@ function mail_template_populate($mail_html, $values) {
     $mail_html = str_replace('$values', $values_html, $mail_html);
     return $mail_html;
 }
+
+function update_file($path) {
+
+    $BASE_URL = "https://raw.githubusercontent.com/7PH/power-form/master/";
+    $remote_path = $BASE_URL . $path;
+    $local_path = dirname(dirname(__DIR__)) . '/' . $path;
+    return copy($remote_path, $local_path);
+}
