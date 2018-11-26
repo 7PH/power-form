@@ -1,5 +1,8 @@
 <?php
 
+/** Private key for form handling */
+define('FORM_PRIVKEY',  '@TODO');
+
 /** Database credentials */
 define('DB_ENABLE',     false);
 define('DB_NAME',       '@TODO');
