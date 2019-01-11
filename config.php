@@ -49,8 +49,13 @@ $elements[] = array(
     "default" => "default value"
 );
 $elements[] = array(
+    "type" => "date",
+    "title" => "Input 3 (date)",
+    "default" => ""
+);
+$elements[] = array(
     "type" => "input",
-    "title" => "Input 3 (email)",
+    "title" => "Input 4 (email)",
     "accept" => "email",
     "default" => "default value"
 );

@@ -29,6 +29,12 @@
                 <input type="text" title="{{element.title}}" ng-model="values[$index]">
             </div>
 
+            <!-- same for a date -->
+            <div ng-if="element.type === 'date'">
+                <label>{{element.title}}</label>
+                <input type="date" title="{{element.title}}" ng-model="values[$index]">
+            </div>
+
             <!-- same for a text area -->
             <div ng-if="element.type === 'textarea'">
                 <textarea title="{{element.title}}" ng-model="values[$index]"></textarea>
