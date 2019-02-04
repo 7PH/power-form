@@ -146,3 +146,19 @@ function update_file($path) {
     $local_path = dirname(dirname(__DIR__)) . '/' . $path;
     return copy($remote_path, $local_path);
 }
+
+/**
+ * Tells if the user is logged as admin
+ *
+ * @return bool
+ */
+function is_logged() {
+    return isset($_SESSION) && isset($_SESSION['form_logged']) && $_SESSION['form_logged'];
+}
+
+/**
+ * Logs the user as admin
+ */
+function log_user() {
+    $_SESSION['form_logged'] = true;
+}

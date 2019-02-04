@@ -3,6 +3,9 @@
 /** Private key for form handling */
 define('FORM_PRIVKEY',  '@TODO');
 
+/** This prefix will be used for any session, cookie key */
+define('FORM_PREFIX',   '@TODO');
+
 /** Database credentials */
 define('DB_ENABLE',     false);
 define('DB_NAME',       '@TODO');

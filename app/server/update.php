@@ -2,12 +2,17 @@
 
 require('functions.php');
 
-if (FORM_PRIVKEY !== $_GET['key'] && FORM_PRIVKEY !== $_POST['key'])
-    exit("Incorrect password");
+session_start();
+
+if (! is_logged())
+    exit("invalid session");
 
 $files = array();
 $files[] = 'dist/index.js';
 $files[] = 'dist/index.js.map';
+$files[] = 'app/server/functions.php';
+$files[] = 'app/server/index.php';
+$files[] = 'app/server/result.php';
 $files[] = 'app/server/update.php';
 
 foreach ($files as $file) {
@@ -16,3 +21,6 @@ foreach ($files as $file) {
     echo $result ? "[OK]" : "[ERROR]";
     echo "<br>\n";
 }
+
+?>
+<a href="./">back to admin panel</a>
