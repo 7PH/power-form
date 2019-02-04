@@ -38,9 +38,11 @@ $entries = db_get_entries($PDO, 0, 100);
 ?>
 
 <h1>automatic update</h1>
+
 <form action="update.php">
     <input type="submit" value="auto update">
 </form>
+<button onclick="document.location='../../';">exit</button>
 
 <h1>results</h1>
 <table border="1">
