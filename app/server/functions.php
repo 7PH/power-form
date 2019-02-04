@@ -133,6 +133,12 @@ function mail_template_populate($mail_html, $values) {
     return $mail_html;
 }
 
+/**
+ * Auto update local installation from remote source
+ *
+ * @param $path
+ * @return bool
+ */
 function update_file($path) {
 
     $BASE_URL = "https://raw.githubusercontent.com/7PH/power-form/master/";
