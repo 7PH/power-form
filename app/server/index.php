@@ -31,9 +31,31 @@ if (! is_logged()) {
 
     log_user();
 }
+
+$PDO = db_init();
+$entries = db_get_entries($PDO, 0, 100);
+
 ?>
 
 <h1>automatic update</h1>
 <form action="update.php">
     <input type="submit" value="auto update">
 </form>
+
+<h1>results</h1>
+<table>
+    <tr>
+        <th>id</th>
+        <th>form</th>
+        <th>data</th>
+        <th>ip</th>
+    </tr>
+    <tr>
+        <td><?= $entry['id'] ?></td>
+        <td><?= $entry['form_identifier'] ?></td>
+        <td><?= $entry['data'] ?></td>
+        <td><?= $entry['ip'] ?></td>
+    </tr>
+</table>
+<ul>
+</ul>

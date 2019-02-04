@@ -2,6 +2,7 @@
 
 require('../../config.php');
 
+
 /**
  * Creates a connection to the database
  *
@@ -15,6 +16,7 @@ function db_connect($host, $name, $user, $pass) {
 
     return new PDO("mysql:host=$host;dbname=$name", $user, $pass);
 }
+
 
 /**
  * @return PDO
@@ -35,6 +37,7 @@ function db_init() {
     return $PDO;
 }
 
+
 /**
  * @param $PDO
  * @param $data
@@ -46,6 +49,22 @@ function db_add_entry(&$PDO, $data, $ip, $form_identifier=NULL) {
         'INSERT INTO `'.DB_TABLE.'` (`data`, `form_identifier`, `ip`) VALUES (?, ?, ?)');
     $p->execute([json_encode($data), $form_identifier, $ip]);
 }
+
+
+/**
+ * Get form entries
+ *
+ * @param $PDO
+ * @param $offset
+ * @param $limit
+ * @return mixed
+ */
+function db_get_entries(&$PDO, $offset, $limit) {
+    $p = $PDO->prepare("SELECT `id`, `data`, `form_identifier`, `ip` FROM `".DB_TABLE."` ORDER BY id DESC LIMIT $offset,$limit");
+    $p->execute();
+    return $p->fetchAll(PDO::FETCH_ASSOC);
+}
+
 
 /**
  * @return mixed
