@@ -34,15 +34,19 @@ if (! is_logged()) {
 
 $PDO = db_init();
 $entries = db_get_entries($PDO, 0, 100);
+$config = read_config();
+$config_state = $config['hostname'] === FORM_HOSTNAME && is_array($config['elements']);
 
 ?>
 
-<h1>automatic update</h1>
-
+<h1>actions</h1>
 <form action="update.php">
     <input type="submit" value="auto update">
 </form>
 <button onclick="document.location='../../';">exit</button>
+
+<h1>application</h1>
+<p>configuration: <b><?= $config_state ? 'OK' : 'ERROR' ?></b></p>
 
 <h1>results</h1>
 <table border="1">
