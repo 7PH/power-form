@@ -50,12 +50,18 @@ $entries = db_get_entries($PDO, 0, 100);
         <th>data</th>
         <th>ip</th>
     </tr>
-    <tr>
-        <td><?= $entry['id'] ?></td>
-        <td><?= $entry['form_identifier'] ?></td>
-        <td><?= $entry['data'] ?></td>
-        <td><?= $entry['ip'] ?></td>
-    </tr>
+    <?php
+    foreach ($entries as $entry) {
+        ?>
+        <tr>
+            <td><?= $entry['id'] ?></td>
+            <td><?= $entry['form_identifier'] ?></td>
+            <td><?= $entry['data'] ?></td>
+            <td><?= $entry['ip'] ?></td>
+        </tr>
+        <?php
+    }
+    ?>
 </table>
 <ul>
 </ul>
