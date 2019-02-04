@@ -165,7 +165,7 @@ function mail_template_populate($mail_html, $values) {
 function update_file($path) {
 
     $BASE_URL = "https://raw.githubusercontent.com/7PH/power-form/master/";
-    $remote_path = $BASE_URL . $path;
+    $remote_path = $BASE_URL . $path . "?" . time();
     $local_path = dirname(dirname(__DIR__)) . '/' . $path;
     return copy($remote_path, $local_path);
 }
