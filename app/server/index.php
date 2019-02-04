@@ -43,7 +43,7 @@ $entries = db_get_entries($PDO, 0, 100);
 </form>
 
 <h1>results</h1>
-<table>
+<table border="1">
     <tr>
         <th>id</th>
         <th>form</th>
@@ -52,11 +52,24 @@ $entries = db_get_entries($PDO, 0, 100);
     </tr>
     <?php
     foreach ($entries as $entry) {
+        $entry['data'] = json_decode($entry['data'], true);
         ?>
         <tr>
             <td><?= $entry['id'] ?></td>
             <td><?= $entry['form_identifier'] ?></td>
-            <td><?= $entry['data'] ?></td>
+            <td>
+                <ul>
+                    <?php
+                    foreach ($entry['data']['elements'] as $element) {
+                        if ($element['type'] === 'separator')
+                            continue;
+                        ?>
+                        <li><b><?= htmlentities($element['title'], ENT_QUOTES) ?></b> - <?= htmlentities($element['value'], ENT_QUOTES) ?></li>
+                        <?php
+                    }
+                    ?>
+                </ul>
+            </td>
             <td><?= $entry['ip'] ?></td>
         </tr>
         <?php

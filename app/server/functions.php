@@ -60,8 +60,12 @@ function db_add_entry(&$PDO, $data, $ip, $form_identifier=NULL) {
  * @return mixed
  */
 function db_get_entries(&$PDO, $offset, $limit) {
-    $p = $PDO->prepare("SELECT `id`, `data`, `form_identifier`, `ip` FROM `".DB_TABLE."` ORDER BY id DESC LIMIT $offset,$limit");
-    $p->execute();
+    $p = $PDO->prepare("SELECT `id`, `data`, `form_identifier`, `ip`
+        FROM `".DB_TABLE."`
+        WHERE form_identifier=?
+        ORDER BY id DESC
+        LIMIT $offset,$limit");
+    $p->execute([DB_IDENTIFIER]);
     return $p->fetchAll(PDO::FETCH_ASSOC);
 }
 
