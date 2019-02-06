@@ -83,5 +83,3 @@ $config_state = $config['hostname'] === FORM_HOSTNAME && is_array($config['eleme
     }
     ?>
 </table>
-<ul>
-</ul>
