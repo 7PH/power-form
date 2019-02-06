@@ -14,7 +14,7 @@
 
 ## Features
 
-[x] Email notification on submit
-[x] Admin panel with all form submissions
-[x] One click update from admin panel
-[x] No need to touch any backend code (php code). Just edit config.php
+- [x] Email notification on submit
+- [x] Admin panel with all form submissions
+- [x] One click update from admin panel
+- [x] No need to touch any backend code (php code). Just edit config.php
