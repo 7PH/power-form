@@ -12,7 +12,7 @@ if (! is_logged()) {
         ?>
         <!-- needs to register -->
         <form action="" method="post">
-            <label>password: </label><input name="key" type="password">
+            <label for="key">password: </label><input id="key" name="key" type="password">
             <input type="submit" value="send">
         </form>
         <?php
@@ -54,6 +54,7 @@ $config_state = $config['hostname'] === FORM_HOSTNAME && is_array($config['eleme
         <th>id</th>
         <th>form</th>
         <th>data</th>
+        <th>date</th>
         <th>ip</th>
     </tr>
     <?php
@@ -76,6 +77,7 @@ $config_state = $config['hostname'] === FORM_HOSTNAME && is_array($config['eleme
                     ?>
                 </ul>
             </td>
+            <td><?= $entry['tms'] ?></td>
             <td><?= $entry['ip'] ?></td>
         </tr>
         <?php

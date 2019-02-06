@@ -30,9 +30,11 @@ function db_init() {
             `form_identifier` VARCHAR (64),
             `data` VARCHAR(4096) NOT NULL,
             `ip` VARCHAR(64) NOT NULL,
+            `tms` INT NOT NULL,
             PRIMARY KEY (`id`),
             INDEX (`form_identifier`),
-            INDEX (`ip`)
+            INDEX (`ip`),
+            INDEX (`tms`)
         ) ENGINE = InnoDB;');
     return $PDO;
 }
@@ -46,8 +48,8 @@ function db_init() {
  */
 function db_add_entry(&$PDO, $data, $ip, $form_identifier=NULL) {
     $p = $PDO->prepare(
-        'INSERT INTO `'.DB_TABLE.'` (`data`, `form_identifier`, `ip`) VALUES (?, ?, ?)');
-    $p->execute([json_encode($data), $form_identifier, $ip]);
+        'INSERT INTO `'.DB_TABLE.'` (`data`, `form_identifier`, `ip`, `tms`) VALUES (?, ?, ?, ?)');
+    $p->execute([json_encode($data), $form_identifier, $ip, time()]);
 }
 
 
@@ -60,7 +62,7 @@ function db_add_entry(&$PDO, $data, $ip, $form_identifier=NULL) {
  * @return mixed
  */
 function db_get_entries(&$PDO, $offset, $limit) {
-    $p = $PDO->prepare("SELECT `id`, `data`, `form_identifier`, `ip`
+    $p = $PDO->prepare("SELECT `id`, `data`, `form_identifier`, `ip`, `tms`
         FROM `".DB_TABLE."`
         WHERE form_identifier=?
         ORDER BY id DESC
