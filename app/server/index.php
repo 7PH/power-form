@@ -54,8 +54,6 @@ $config_state = $config['hostname'] === FORM_HOSTNAME && is_array($config['eleme
         <th>id</th>
         <th>form</th>
         <th>data</th>
-        <th>date</th>
-        <th>ip</th>
     </tr>
     <?php
     foreach ($entries as $entry) {
@@ -65,6 +63,8 @@ $config_state = $config['hostname'] === FORM_HOSTNAME && is_array($config['eleme
             <td><?= $entry['id'] ?></td>
             <td><?= $entry['form_identifier'] ?></td>
             <td>
+                <p>date: le <b><?= date('d/m/Y', $entry['tms']) ?></b> à <b><?= date('H:i:s', $entry['tms']) ?></b></p>
+                <p>ip: <b><?= $entry['ip'] ?></b></p>
                 <ul>
                     <?php
                     foreach ($entry['data']['elements'] as $element) {
@@ -77,7 +77,7 @@ $config_state = $config['hostname'] === FORM_HOSTNAME && is_array($config['eleme
                     ?>
                 </ul>
             </td>
-            <td>le <?= date('Y/m/d \à H:i:s', $entry['tms']) ?></td>
+            <td>le <?= date('d/m/Y \à H:i:s', $entry['tms']) ?></td>
             <td><?= $entry['ip'] ?></td>
         </tr>
         <?php
