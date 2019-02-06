@@ -77,7 +77,7 @@ $config_state = $config['hostname'] === FORM_HOSTNAME && is_array($config['eleme
                     ?>
                 </ul>
             </td>
-            <td><?= $entry['tms'] ?></td>
+            <td>le <?= date('Y/m/d \à H:i:s', $entry['tms']) ?></td>
             <td><?= $entry['ip'] ?></td>
         </tr>
         <?php
