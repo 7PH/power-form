@@ -32,8 +32,14 @@ if (! is_logged()) {
     log_user();
 }
 
-$PDO = db_init();
-$entries = db_get_entries($PDO, 0, 100);
+if (DB_ENABLE) {
+    $PDO = db_init();
+    $entries = db_get_entries($PDO, 0, 100);
+} else {
+    $PDO = null;
+    $entries = [];
+}
+
 $config = read_config();
 $config_state = $config['hostname'] === FORM_HOSTNAME && is_array($config['elements']);
 
