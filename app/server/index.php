@@ -53,6 +53,7 @@ $config_state = $config['hostname'] === FORM_HOSTNAME && is_array($config['eleme
 
 <h1>application</h1>
 <p>configuration: <b><?= $config_state ? 'OK' : 'ERROR' ?></b></p>
+<p>admin emails: <b><?= implode(', ', json_decode(FORM_EMAILS, true)) ?></b></p>
 
 <h1>results</h1>
 <table border="1">
