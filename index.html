@@ -10,7 +10,7 @@
 <body ng-controller="PowerFormController">
 
     <div ng-if="true || state === STATE_NOT_SENT">
-        <div ng-repeat="element in CONFIG.elements">
+        <div ng-repeat="element in CONFIG.FORM_ELEMENTS">
 
             <!-- if the element is a separator -->
             <div ng-if="element.type === 'separator'">

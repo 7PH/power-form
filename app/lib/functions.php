@@ -85,10 +85,31 @@ function read_post_data() {
  */
 function read_config() {
 
-    return array(
-        "hostname" => FORM_HOSTNAME,
-        "elements" => json_decode(FORM_ELEMENTS, true)
-    );
+    return json_decode(FORM_CONFIG, true);
+}
+
+/**
+ * @param $config
+ * @return array sanitized config for users
+ */
+function sanitize_config(&$config) {
+    $fields = ['FORM_HOSTNAME', 'FORM_ELEMENTS'];
+    $sanitized = [];
+    foreach ($fields as $field)
+        $sanitized[$field] = isset($config[$field]) ? $config[$field] : null;
+    return $sanitized;
+}
+
+/**
+ * @param $config
+ */
+function write_config(&$config) {
+
+    $php_code = '<?php define("FORM_CONFIG", "' . addslashes(json_encode($config)) . '");';
+    $fp = fopen('../../config.php', 'a+');
+    ftruncate($fp, 0);
+    fwrite($fp, $php_code);
+    fclose($fp);
 }
 
 /**
@@ -168,7 +189,7 @@ function update_file($path) {
 
     $BASE_URL = "https://raw.githubusercontent.com/7PH/power-form/master/";
     $remote_path = $BASE_URL . $path . "?" . time();
-    $local_path = dirname(dirname(__DIR__)) . '/' . $path;
+    $local_path = dirname(dirname(__DIR__)) . 'functions.php/' . $path;
     return copy($remote_path, $local_path);
 }
 

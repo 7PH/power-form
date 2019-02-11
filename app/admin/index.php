@@ -1,9 +1,10 @@
 <?php
 
-require('functions.php');
+require '../lib/functions.php';
 
 session_start();
 
+$config = read_config();
 
 if (! is_logged()) {
 
@@ -19,7 +20,7 @@ if (! is_logged()) {
         exit();
     }
 
-    $is_valid = $_POST['key'] === FORM_PRIVKEY;
+    $is_valid = $_POST['key'] === $config['FORM_PRIVKEY'];
     if (! $is_valid) {
 
         ?>
@@ -32,7 +33,7 @@ if (! is_logged()) {
     log_user();
 }
 
-if (DB_ENABLE) {
+if ($config['DB_ENABLE']) {
     $PDO = db_init();
     $entries = db_get_entries($PDO, 0, 100);
 } else {
@@ -41,7 +42,6 @@ if (DB_ENABLE) {
 }
 
 $config = read_config();
-$config_state = $config['hostname'] === FORM_HOSTNAME && is_array($config['elements']);
 
 ?>
 
@@ -52,8 +52,7 @@ $config_state = $config['hostname'] === FORM_HOSTNAME && is_array($config['eleme
 <button onclick="document.location='../../';">exit</button>
 
 <h1>application</h1>
-<p>configuration: <b><?= $config_state ? 'OK' : 'ERROR' ?></b></p>
-<p>admin emails: <b><?= implode(', ', json_decode(FORM_EMAILS, true)) ?></b></p>
+<p>admin emails: <b><?= implode(', ', json_decode($config['FORM_EMAILS'], true)) ?></b></p>
 
 <h1>results</h1>
 <table border="1">

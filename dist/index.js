@@ -15,8 +15,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
         while (_) try {
-            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [0, t.value];
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
                 case 0: case 1: t = op; break;
                 case 4: _.label++; return { value: op[1], done: false };
@@ -39,8 +39,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var app = angular.module("powerForm", []);
 app.controller("PowerFormController", function ($scope) {
     return __awaiter(this, void 0, void 0, function () {
-        var _this = this;
         var CONFIG;
+        var _this = this;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -49,14 +49,15 @@ app.controller("PowerFormController", function ($scope) {
                     $scope.STATE_SENT = 2;
                     $scope.state = $scope.STATE_NOT_SENT;
                     $scope.error = "";
-                    return [4, fetch('./app/server/config.php')];
+                    return [4, fetch('./app/api/config.php')];
                 case 1: return [4, (_a.sent()).json()];
                 case 2:
                     CONFIG = _a.sent();
                     $scope.CONFIG = CONFIG;
+                    console.log(CONFIG.FORM_ELEMENTS);
                     $scope.getDefaults = function () {
                         return CONFIG
-                            .elements
+                            .FORM_ELEMENTS
                             .map(function (element) { return element.default; });
                     };
                     $scope.resetValues = function () {

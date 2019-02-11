@@ -1,7 +1,7 @@
 
 export interface Config {
 
-    elements: ConfigElement[];
+    FORM_ELEMENTS: ConfigElement[];
 }
 
 export interface ConfigElement {

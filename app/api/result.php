@@ -1,6 +1,6 @@
 <?php
 
-require('functions.php');
+require '../lib/functions.php';
 
 /**
  * Data received from the form
@@ -16,11 +16,11 @@ $config = read_config();
 if (! $data)
     ajax_error_exit("Incomplete data");
 
-if (! is_array($data) || count($data) !== count($config['elements']))
+if (! is_array($data) || count($data) !== count($config['FORM_ELEMENTS']))
     ajax_error_exit("Incorrect data");
 
 // Check values
-foreach ($config['elements'] as $key => $element) {
+foreach ($config['FORM_ELEMENTS'] as $key => $element) {
     if (! isset($element['accept']))
         continue;
 
@@ -39,17 +39,17 @@ foreach ($config['elements'] as $key => $element) {
 
 // Merge config with values
 $values = $config;
-foreach ($values['elements'] as $key => $value)
-    $values['elements'][$key]['value'] = $data[$key];
+foreach ($values['FORM_ELEMENTS'] as $key => $value)
+    $values['FORM_ELEMENTS'][$key]['value'] = $data[$key];
 
 
 // Store in db if config is set
-if (DB_ENABLE)
-    db_add_entry(db_init(), $values, $_SERVER['REMOTE_ADDR'], DB_IDENTIFIER);
+if ($config['DB_ENABLE'])
+    db_add_entry(db_init(), $values, $_SERVER['REMOTE_ADDR'], $config['DB_IDENTIFIER']);
 
 
 // Send email if config tells so
-if (FORM_SEND_EMAIL)
+if ($config['FORM_SEND_EMAIL'])
     if (! send_email($values))
         ajax_error_exit("An error occurred while sending the email");
 

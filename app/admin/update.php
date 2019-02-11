@@ -1,6 +1,6 @@
 <?php
 
-require('functions.php');
+require '../lib/functions.php';
 
 session_start();
 
@@ -10,9 +10,10 @@ if (! is_logged())
 $files = array();
 $files[] = 'dist/index.js';
 $files[] = 'dist/index.js.map';
-$files[] = 'app/server/functions.php';
-$files[] = 'app/server/index.php';
-$files[] = 'app/server/result.php';
+$files[] = 'app/admin/index.php';
+$files[] = 'app/admin/update.php';
+$files[] = 'app/api/config.php';
+$files[] = 'app/api/result.php';
 $files[] = 'app/server/update.php';
 
 foreach ($files as $file) {
@@ -23,4 +24,4 @@ foreach ($files as $file) {
 }
 
 ?>
-<a href="./">back to admin panel</a>
+<a href="">back to admin panel</a>

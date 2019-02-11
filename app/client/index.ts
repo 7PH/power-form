@@ -22,7 +22,7 @@ app.controller("PowerFormController", async function ($scope: any) {
     /**
      * Load config
      */
-    const CONFIG: Config = await (await fetch('./app/server/config.php')).json();
+    const CONFIG: Config = await (await fetch('./app/api/config.php')).json();
     $scope.CONFIG = CONFIG;
 
     /**
@@ -30,7 +30,7 @@ app.controller("PowerFormController", async function ($scope: any) {
      */
     $scope.getDefaults = function() {
         return CONFIG
-            .elements
+            .FORM_ELEMENTS
             .map((element: any) => element.default);
     };
 
@@ -74,7 +74,7 @@ app.controller("PowerFormController", async function ($scope: any) {
         }
 
         $scope.state = $scope.STATE_SENDING;
-        const result: Response = await fetch('./app/server/result.php', {
+        const result: Response = await fetch('./app/api/result.php', {
             method: 'POST',
             body: JSON.stringify($scope.values),
             headers: {
